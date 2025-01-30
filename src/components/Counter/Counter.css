@@ -7,6 +7,7 @@
   border-radius: 999px;
   box-sizing: border-box;
 }
+
 .contentBox {
   box-sizing: content-box;
 }
@@ -22,14 +23,23 @@
   box-sizing: content-box;
 }
 
-.primary {
-  background-color: #2fb675;
+.counter__stroke_primary {
+  background-color: #ffffff;
+  opacity: 0.12;
+}
+
+.counter__stroke_secondary {
+  background-color: rgba(131, 102, 86, 0.12);
+}
+
+.counter__primary {
+  /* background: #ff7700; */
   color: #ffffff;
 }
 
-.secondary {
+.counter__secondary {
   /* background-color: rgba(#8366561f, 0.12); */
-  background-color: rgba(131, 102, 86, 0.12);
+  /* background-color: rgba(131, 102, 86, 0.12); */
   color: #2e2f33;
 }
 

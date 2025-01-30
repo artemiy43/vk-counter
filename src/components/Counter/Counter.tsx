@@ -1,14 +1,20 @@
 import "./Counter.css";
 
 interface ICounter {
-  varient: string;
-  size: number;
-  stroke: boolean;
-  quantity: string | number;
-  pulse: boolean;
+  varient: "primary" | "secondary";
+  size: 8 | 12 | 16 | 20 | 24;
+  stroke?: boolean;
+  quantity?: string | number;
+  pulse?: boolean;
 }
 
-function Counter({ varient, size, stroke, quantity, pulse }: ICounter) {
+function Counter({
+  varient,
+  size,
+  stroke = false,
+  quantity = 3,
+  pulse = false,
+}: ICounter) {
   function getPulseClass(
     pulse: boolean,
     size: number,
@@ -54,13 +60,25 @@ function Counter({ varient, size, stroke, quantity, pulse }: ICounter) {
       else return "";
   }
 
+  function getColor(varient: string) {
+    return "counter__" + varient;
+  }
+
+  function getColorStroke(varient: string) {
+    return "counter__stroke_" + varient;
+  }
+
   return (
     <div
-      className={`counter ${varient} ${getSizeClass(size)} ${getWidth(
+      className={`counter ${getColor(varient)} ${getSizeClass(size)} ${getWidth(
         quantity
       )}`}
     >
-      <div className={`${getStrokeClass(stroke, size)} counter__stroke`}></div>
+      <div
+        className={`${getStrokeClass(stroke, size)} ${getColorStroke(
+          varient
+        )} counter__stroke`}
+      ></div>
       <div className={`counter__text`}>{getQuantity(quantity)}</div>
       <div className={`pulse one ${getPulseClass(pulse, size, varient)}`}></div>
       <div className={`pulse two ${getPulseClass(pulse, size, varient)}`}></div>
