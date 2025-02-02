@@ -2,7 +2,7 @@ import "./Counter.css";
 
 interface ICounter {
   varient: "primary" | "secondary";
-  size: 8 | 12 | 16 | 20 | 24;
+  size: number;
   stroke?: boolean;
   quantity?: string | number;
   pulse?: boolean;

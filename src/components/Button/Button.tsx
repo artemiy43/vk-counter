@@ -1,6 +1,10 @@
 import "./Button.css";
 import Counter from "../Counter/Counter";
 import { useEffect, useRef, useState } from "react";
+// import loader from "../../assets/loader.svg";
+// import loader_p from "../../assets/loader_p.png";
+import loader_primary from "../../assets/loader_primary.png";
+import loader_secondary from "../../assets/loader_secondary.png";
 
 interface IButton {
   varient: "primary" | "secondary";
@@ -25,6 +29,10 @@ function Button({ varient, size, state, counter, focused, children }: IButton) {
     return `size_${size}`;
   }
 
+  function getLoaderSizeClass(size: number) {
+    return `button__loader_size_${size}`;
+  }
+
   function getGapClass(size: number) {
     return `gap_${size}`;
   }
@@ -37,14 +45,16 @@ function Button({ varient, size, state, counter, focused, children }: IButton) {
     return buttonState === "disabled" ? true : false;
   }
 
-  //   function getDisabledClass() {
-  //     return buttonState === "disabled" ? "disabled" : "";
-  //   }
-
   function getBackgroundLayout() {
     return varient === "primary"
       ? "button__overlay_primary"
       : "button__overlay_secondary";
+  }
+
+  function getColorLoader() {
+    return varient === "primary"
+      ? "button__loader_primary"
+      : "button__loader_secondary";
   }
 
   return (
@@ -54,7 +64,7 @@ function Button({ varient, size, state, counter, focused, children }: IButton) {
         size.buttonSize
       )} ${getRadiusClass(size.buttonSize)} ${
         buttonState === "pressed" ? "button_pressed" : ""
-      }`}
+      } ${buttonState === "enabled" ? "enabled" : ""}`}
       onMouseDown={() => setButtonState("pressed")}
       onMouseUp={() => setButtonState("loading")}
       disabled={isDisabled()}
@@ -67,13 +77,23 @@ function Button({ varient, size, state, counter, focused, children }: IButton) {
       <div
         className={`button__content ${getGapClass(size.buttonSize)} ${
           buttonState === "pressed" ? "pressed" : ""
-        }`}
+        } ${buttonState === "loading" ? "button__content_hide" : ""}`}
       >
         <label className="button__label">{children}</label>
         {counter && <Counter size={size.counterSize} varient={varient} />}
       </div>
-      {/* <svg></svg>
-      <div className="shimmer"></div> */}
+      <img
+        src={varient === "primary" ? loader_primary : loader_secondary}
+        alt="loader"
+        className={`button__loader ${
+          buttonState === "loading" ? "button__loader_show" : ""
+        } ${getColorLoader()} ${getLoaderSizeClass(size.buttonSize)}`}
+      ></img>
+      <div
+        className={`shimmer ${
+          varient === "primary" ? "shimmer_primary" : "shimmer_secondary"
+        } ${buttonState === "loading" ? "shimmer_show" : ""}`}
+      ></div>
     </button>
   );
 }

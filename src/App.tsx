@@ -22,7 +22,7 @@ function App() {
         size={buttonSizes[0]}
         state={"enabled"}
         counter={true}
-        focused={true}
+        focused={false}
       >
         Что сделать
       </Button>
